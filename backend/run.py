@@ -1,15 +1,13 @@
 """
-MiroFish Backend 启动入口
+MiroFish Backend Entry Point
 """
 
 import os
 import sys
 
-# 解决 Windows 控制台中文乱码问题：在所有导入之前设置 UTF-8 编码
+# Fix Windows console encoding: set UTF-8 before all imports
 if sys.platform == 'win32':
-    # 设置环境变量确保 Python 使用 UTF-8
     os.environ.setdefault('PYTHONIOENCODING', 'utf-8')
-    # 重新配置标准输出流为 UTF-8
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     if hasattr(sys.stderr, 'reconfigure'):

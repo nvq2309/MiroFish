@@ -12,8 +12,8 @@ from logging.handlers import RotatingFileHandler
 
 def _ensure_utf8_stdout():
     """
-    确保 stdout/stderr 使用 UTF-8 编码
-    解决 Windows 控制台中文乱码问题
+    Ensure stdout/stderr use UTF-8 encoding.
+    Fixes Windows console encoding issues.
     """
     if sys.platform == 'win32':
         # Windows 下重新配置标准输出为 UTF-8
@@ -74,8 +74,8 @@ def setup_logger(name: str = 'mirofish', level: int = logging.DEBUG) -> logging.
     file_handler.setLevel(logging.DEBUG)
     file_handler.setFormatter(detailed_formatter)
     
-    # 2. 控制台处理器 - 简洁日志（INFO及以上）
-    # 确保 Windows 下使用 UTF-8 编码，避免中文乱码
+    # 2. Console handler - concise logs (INFO and above)
+    # Ensure UTF-8 encoding on Windows
     _ensure_utf8_stdout()
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setLevel(logging.INFO)

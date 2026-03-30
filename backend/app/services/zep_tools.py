@@ -1441,7 +1441,7 @@ class ZepToolsService:
                 meaningful.sort(key=len, reverse=True)
                 key_quotes = [s + "。" for s in meaningful[:3]]
 
-                # 策略2（补充）: 正确配对的中文引号「」内长文本
+                # Strategy 2 (supplementary): Long text within properly paired quotation marks
                 if not key_quotes:
                     paired = re.findall(r'\u201c([^\u201c\u201d]{15,100})\u201d', clean_text)
                     paired += re.findall(r'\u300c([^\u300c\u300d]{15,100})\u300d', clean_text)
@@ -1697,26 +1697,27 @@ class ZepToolsService:
         
         system_prompt = """你是一个专业的新闻编辑。请根据多位受访者的回答，生成一份采访摘要。
 
-摘要要求：
-1. 提炼各方主要观点
-2. 指出观点的共识和分歧
-3. 突出有价值的引言
-4. 客观中立，不偏袒任何一方
-5. 控制在1000字内
+Summary requirements:
+1. Extract the main viewpoints of all parties
+2. Identify areas of consensus and disagreement
+3. Highlight valuable quotes
+4. Remain objective and neutral, not favoring any side
+5. Keep within 1000 words
 
-格式约束（必须遵守）：
-- 使用纯文本段落，用空行分隔不同部分
-- 不要使用Markdown标题（如#、##、###）
-- 不要使用分割线（如---、***）
-- 引用受访者原话时使用中文引号「」
-- 可以使用**加粗**标记关键词，但不要使用其他Markdown语法"""
+Format constraints (must follow):
+- Use plain text paragraphs, separated by blank lines
+- Do not use Markdown headings (e.g. #, ##, ###)
+- Do not use dividers (e.g. ---, ***)
+- When quoting interviewees, use quotation marks
+- You may use **bold** to mark keywords, but do not use other Markdown syntax
+- All output must be in English"""
 
-        user_prompt = f"""采访主题：{interview_requirement}
+        user_prompt = f"""Interview Topic: {interview_requirement}
 
-采访内容：
+Interview Content:
 {"".join(interview_texts)}
 
-请生成采访摘要。"""
+Please generate an interview summary."""
 
         try:
             summary = self.llm.chat(
